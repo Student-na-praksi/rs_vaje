@@ -1,0 +1,49 @@
+name: Sync fork from laspp/rs_vaje
+
+on:
+  schedule:
+    - cron: "0 4 * * *" # daily at 04:00 UTC
+  workflow_dispatch: {} # allows manual run
+
+permissions:
+  contents: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout fork
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Sync fork from laspp/rs_vaje
+        env:
+          UPSTREAM_REPO: laspp/rs_vaje
+          UPSTREAM_BRANCH: main
+          FORK_BRANCH: main
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git remote add upstream "https://github.com/${UPSTREAM_REPO}.git"
+          git fetch origin "${FORK_BRANCH}"
+          git fetch upstream "${UPSTREAM_BRANCH}"
+
+          git checkout -B "${FORK_BRANCH}" "origin/${FORK_BRANCH}"
+
+          # Same strategy as GitHub "Sync fork":
+          # 1) fast-forward when possible
+          # 2) otherwise create a merge commit (no history rewrite)
+          if git merge --ff-only "upstream/${UPSTREAM_BRANCH}"; then
+            echo "Fast-forward sync completed"
+          else
+            echo "Fast-forward not possible; creating merge commit"
+            git merge --no-edit "upstream/${UPSTREAM_BRANCH}"
+          fi
+
+          git push origin "HEAD:${FORK_BRANCH}"
