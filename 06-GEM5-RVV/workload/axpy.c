@@ -18,7 +18,7 @@ void axpy_scalar(float alpha, const float *x, float *y, size_t n) {
  */
 void axpy_rvv(float alpha, const float *x, float *y, size_t n) {
     size_t vl;
-    for (size_t i = 0; i < n; i += vl) {
+    for (size_t i = 0; i < n; i += vl) { // ceil(n/vl) iterations
         /* Set vl = min(n-i, VLMAX) for e32 (32-bit float), m1 grouping */
         vl = __riscv_vsetvl_e32m1(n - i);
  
