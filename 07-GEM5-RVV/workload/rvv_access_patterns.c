@@ -117,7 +117,7 @@ void update_gather_scatter(const float    *x,
          * Gather: load y[idx[i]] for each active lane.
          * vloxei32: indexed load with 32-bit byte offsets.
          */
-        vfloat32m2_t vy = __riscv_vloxei32_v_f32m2(y, vbytes, vl);
+        vfloat32m2_t vy = __riscv_vluxei32_v_f32m2(y, vbytes, vl);
 
         /* Accumulate: y[idx[i]] += alpha * x[i] */
         vy = __riscv_vfmacc_vf_f32m2(vy, alpha, vx, vl);
@@ -126,7 +126,7 @@ void update_gather_scatter(const float    *x,
          * Scatter: store back to y[idx[i]] for each active lane.
          * vsoxei32: indexed store with 32-bit byte offsets.
          */
-        __riscv_vsoxei32_v_f32m2(y, vbytes, vy, vl);
+        __riscv_vsuxei32_v_f32m2(y, vbytes, vy, vl);
     }
 }
 

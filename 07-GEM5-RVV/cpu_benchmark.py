@@ -48,8 +48,9 @@ board = SimpleBoard(
 # Set the workloaad.
 #binary = CustomResource("./workload/rvv_quant_matmul.bin")
 #binary = CustomResource("./workload/rvv_access_patterns.bin")
+binary = CustomResource("./workload/rvv_predicate_v0.bin")
 #binary = CustomResource("./workload/rvv_masked.bin")
-binary = CustomResource("./workload/rvv_roofline_single.bin")
+#binary = CustomResource("./workload/rvv_roofline_single.bin")
 
 board.set_se_binary_workload(binary)
 

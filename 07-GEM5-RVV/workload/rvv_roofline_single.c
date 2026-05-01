@@ -13,7 +13,7 @@
 /* Parameters                                                          */
 /* ------------------------------------------------------------------ */
 #ifndef REPEAT_OPS
-#define REPEAT_OPS  64      /* tune this to sweep intensity */
+#define REPEAT_OPS  1      /* tune this to sweep intensity */
 #endif
 
 #define N  65536            /* large enough to exceed L2   */
@@ -60,7 +60,7 @@ int main(void) {
     float *x = malloc(N * sizeof(float));
     float *y = malloc(N * sizeof(float));
 
-    for (size_t i = 0; i < N; i++)
+    for (size_t i = 0; i < N; i++) 
         x[i] = 1.0f + (float)i * 0.0001f;
 
     /* Theoretical intensity for this configuration */
