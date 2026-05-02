@@ -49,3 +49,5 @@ bin/
 *.svg
 *.ini
 *.dot
+*/Notes.txt
+*_stats_*/
