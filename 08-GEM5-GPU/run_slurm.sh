@@ -12,4 +12,4 @@ srun --ntasks=1 --time=00:30:00 --output=log_CU.txt \
 	$GEM5_PATH/gem5.opt --outdir=CU_stats \
 	$GEM5_ROOT/configs/example/apu_se.py \
 	-n 3 --num-compute-units 4 --gfx-version="gfx902" \
-	-c ./mat_mult/bin/mat_mult 
+	-c ./vec_add/bin/vec_add 
